@@ -10,7 +10,8 @@ import { CacheConfigService } from './cache/cacheconfig.service';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.dev.local', 'env.dev']
+      envFilePath: ['.env.dev.local', 'env.dev'],
+      ignoreEnvFile: false
     }),
     CacheModule.registerAsync({
       useClass: CacheConfigService
