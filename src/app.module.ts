@@ -1,3 +1,4 @@
+import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
@@ -8,6 +9,7 @@ import { CacheConfigService } from './cache/cache-config.service';
 import configuration from './configuration';
 import cacheConfig from './cache/cache.config';
 import webserverConfig from './webserver/webserver.config';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -17,9 +19,11 @@ import webserverConfig from './webserver/webserver.config';
       ignoreEnvFile: false,
       load: [configuration, webserverConfig, cacheConfig]
     }),
+    ScheduleModule.forRoot(),
     CacheModule.registerAsync({
       useClass: CacheConfigService
     }),
+    ScheduledTasksModule,
   ],
   controllers: [AppController],
   providers: [
