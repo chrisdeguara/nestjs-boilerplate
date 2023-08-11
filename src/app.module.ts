@@ -1,11 +1,10 @@
-import type { RedisClientOptions } from 'redis';
-import * as redisStore from 'cache-manager-redis-store';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CacheConfigService } from './cache/cacheconfig.service';
 
 @Module({
   imports: [
@@ -14,14 +13,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       envFilePath: ['.env.dev.local', 'env.dev']
     }),
     CacheModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        isGlobal: true,
-        ttl: configService.get('CACHE_TTL'),
-        url: configService.get('REDIS_CACHE_URL')
-      }),
-      inject: [ConfigService],
+      useClass: CacheConfigService
     }),
   ],
   controllers: [AppController],
