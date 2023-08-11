@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
     imports: [],
     controllers: [],
     providers: [
-        ScheduledTasksService],
+        ScheduledTasksService
+    ],
 })
 export class ScheduledTasksModule { }
