@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
@@ -9,6 +10,14 @@ export class AppService {
   }
   
   getHello(): string {
-    return this.configService.get<string>('TEST_KEY');
+    return "Hello world!";
+  }
+
+  getCurrentDate(): string {
+    return moment().format('DD/MM/YYYY HH:mm:ss')
+  }
+
+  getConfigExample(): string {
+    return this.configService.get<string>('cache.redis.url');
   }
 }

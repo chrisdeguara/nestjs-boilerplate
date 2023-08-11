@@ -11,8 +11,8 @@ export class CacheConfigService implements CacheOptionsFactory {
     return {
       store: redisStore,
       isGlobal: true,
-      ttl: this.configService.get('CACHE_TTL'),
-      url: this.configService.get('REDIS_CACHE_URL'),
+      ttl: this.configService.get('cache.ttl'),
+      url: this.configService.get('cache.redis.url'),
     };
   }
 }

@@ -5,7 +5,8 @@ import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 @Controller()
 @UseInterceptors(CacheInterceptor)
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -21,5 +22,15 @@ export class AppController {
   @Get('cached2')
   getCachedItem2(): string {
     return this.appService.getHello();
+  }
+
+  @Get('date')
+  getDate(): string {
+    return this.appService.getCurrentDate();
+  }
+
+  @Get('config')
+  getConfig(): string {
+    return this.appService.getConfigExample();
   }
 }
