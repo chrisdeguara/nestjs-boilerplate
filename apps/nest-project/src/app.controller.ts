@@ -13,12 +13,6 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('cached')
-  @CacheTTL(30)
-  getCachedItem(): string {
-    return this.appService.getHello();
-  }
-
   @Get('date')
   getDate(): string {
     return this.appService.getCurrentDate();
