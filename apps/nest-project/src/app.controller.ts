@@ -19,18 +19,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('cached2')
-  getCachedItem2(): string {
-    return this.appService.getHello();
-  }
-
   @Get('date')
   getDate(): string {
     return this.appService.getCurrentDate();
-  }
-
-  @Get('config')
-  getConfig(): string {
-    return this.appService.getConfigExample();
   }
 }

@@ -1,3 +1,4 @@
+import { CacheConfigModule } from './modules/cache-config/cache-config.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.module';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
@@ -6,7 +7,7 @@ import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { CacheConfigService } from './cache/cache-config.service';
+import { CacheConfigService } from './modules/cache-config/cache-config.service';
 import configuration from './config/configuration';
 import cacheConfig from './config/cache.config';
 import webserverConfig from './config/webserver.config';
@@ -28,18 +29,23 @@ import loggerConfig from './config/logger.config';
     }),
     ScheduledTasksModule,
     LoggerModule,
+    CacheConfigModule
   ],
   controllers: [AppController],
-  providers: [
-    {
+  providers: [{
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
     AppService
   ],
+  exports: [
+    ConfigModule,
+    CacheModule,
+    CacheConfigModule
+  ]
 })
-export class AppModule { 
-   configure(consumer: MiddlewareConsumer) {
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
     consumer.apply(RequestLoggerMiddleware).forRoutes('*');
   }
 }
