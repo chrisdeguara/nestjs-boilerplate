@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/fx-app/tsconfig.app.json"
       }
+    },
+    "fx-library": {
+      "type": "library",
+      "root": "libs/fx-library",
+      "entryFile": "index",
+      "sourceRoot": "libs/fx-library/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/fx-library/tsconfig.lib.json"
+      }
     }
   }
 }
