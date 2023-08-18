@@ -54,6 +54,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/redis-cache/tsconfig.lib.json"
       }
+    },
+    "microservice-example": {
+      "type": "application",
+      "root": "apps/microservice-example",
+      "entryFile": "main",
+      "sourceRoot": "apps/microservice-example/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/microservice-example/tsconfig.app.json"
+      }
     }
   }
 }

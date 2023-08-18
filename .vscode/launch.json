@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "Debug Nest Framework",
         "args": [
-          "${workspaceFolder}/apps/fx-app/src/main.ts"
+          "${workspaceFolder}/apps/microservice-example/src/main.ts"
         ],
         "runtimeArgs": [
           "--nolazy",
