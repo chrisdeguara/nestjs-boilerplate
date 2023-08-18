@@ -1,8 +1,8 @@
 export class CurrencyPairExchangeRateDto {
-    public constructor(private readonly exchangeRate: number) {
+    public constructor(private readonly _exchangeRate: number) {
     }
 
     public toString(): string {
-        return this.exchangeRate.toString();
+        return this._exchangeRate.toString();
     }
 }

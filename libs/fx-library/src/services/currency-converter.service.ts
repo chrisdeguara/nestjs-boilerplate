@@ -21,8 +21,8 @@ export class CurrencyConverterService {
 
         this.logger.log(`Getting exchange rate for currency pair: ${currencyPair}`)
 
-        currencyPair.baseCurrency = currencyPair.baseCurrency.trim().toUpperCase();
-        currencyPair.quoteCurrency = currencyPair.quoteCurrency.trim().toUpperCase();
+        currencyPair.sanitizeBaseCurrency();
+        currencyPair.sanitizeQuoteCurrency();
 
         if (currencyPair.baseCurrency === currencyPair.quoteCurrency) {
             return new CurrencyPairExchangeRateDto(1);
