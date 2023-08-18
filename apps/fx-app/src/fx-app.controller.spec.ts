@@ -4,7 +4,6 @@ import { CurrencyPairDto } from '@app/fx-library/dto/currency-pair.dto';
 import { ConfigModule } from '@nestjs/config';
 import currencyLayerConfig from './config/currency-layer.config';
 import webserverConfig from './config/webserver.config';
-import configuration from './config/configuration';
 import { FxLibraryModule } from '@app/fx-library';
 import { HttpModule } from '@nestjs/axios';
 
@@ -18,7 +17,7 @@ describe('FxAppController', () => {
           isGlobal: true,
           envFilePath: ['.env.dev.local', 'env.dev'],
           ignoreEnvFile: false,
-          load: [configuration, webserverConfig, currencyLayerConfig],
+          load: [webserverConfig, currencyLayerConfig],
         }),
         HttpModule,
         FxLibraryModule
@@ -32,10 +31,7 @@ describe('FxAppController', () => {
 
   describe('root', () => {
     it('should return a number', () => {
-      const query: CurrencyPairDto = {
-        baseCurrency: 'EUR',
-        quoteCurrency: 'USD'
-      }
+      const query = new CurrencyPairDto('USD', 'EUR');
       const result = fxAppController.getExchangeRateUsingQueryParams(query);
       expect(typeof result).toBe('number');
     });

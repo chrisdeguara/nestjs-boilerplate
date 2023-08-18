@@ -86,7 +86,8 @@
     ],
     "moduleNameMapper": {
       "^@app/fx-library(|/.*)$": "<rootDir>/libs/fx-library/src/$1",
-      "^@app/custom-logger(|/.*)$": "<rootDir>/libs/custom-logger/src/$1"
+      "^@app/custom-logger(|/.*)$": "<rootDir>/libs/custom-logger/src/$1",
+      "^@app/redis-cache(|/.*)$": "<rootDir>/libs/redis-cache/src/$1"
     }
   }
 }

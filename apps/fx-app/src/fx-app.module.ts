@@ -6,6 +6,7 @@ import webserverConfig from './config/webserver.config';
 import currencyLayerConfig from './config/currency-layer.config';
 import { CustomLoggerModule } from '@app/custom-logger';
 import { RequestLoggerMiddleware } from '@app/custom-logger/middleware/request-logger.middleware';
+import { RedisCacheModule } from '@app/redis-cache';
 
 @Module({
   imports: [
@@ -16,10 +17,10 @@ import { RequestLoggerMiddleware } from '@app/custom-logger/middleware/request-l
       load: [webserverConfig, currencyLayerConfig]
     }),
     FxLibraryModule,
-    CustomLoggerModule
+    CustomLoggerModule,
+    RedisCacheModule
   ],
-  controllers: [FxAppController],
-  providers: [],
+  controllers: [FxAppController]
 })
 export class FxAppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

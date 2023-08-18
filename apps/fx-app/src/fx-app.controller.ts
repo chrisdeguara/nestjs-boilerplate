@@ -1,11 +1,13 @@
-import { BadRequestException, Controller, ForbiddenException, Get, HttpException, InternalServerErrorException, Param, Query, UseFilters } from '@nestjs/common';
+import { BadRequestException, Controller, ForbiddenException, Get, HttpException, InternalServerErrorException, Param, Query, UseFilters, UseInterceptors } from '@nestjs/common';
 import { CurrencyPairExchangeRateDto } from '@app/fx-library/dto/currency-pair-exchange-rate.dto';
 import { CurrencyConverterService } from '@app/fx-library';
 import { CurrencyPairDto } from '@app/fx-library/dto/currency-pair.dto';
 import { ExceptionFilter } from './filters/exception.filter';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('fx')
 @UseFilters(new ExceptionFilter)
+@UseInterceptors(CacheInterceptor)
 export class FxAppController {
   constructor(
     private readonly currencyConverterService: CurrencyConverterService) {}

@@ -29,6 +29,12 @@
       ],
       "@app/custom-logger/*": [
         "libs/custom-logger/src/*"
+      ],
+      "@app/redis-cache": [
+        "libs/redis-cache/src"
+      ],
+      "@app/redis-cache/*": [
+        "libs/redis-cache/src/*"
       ]
     }
   }
