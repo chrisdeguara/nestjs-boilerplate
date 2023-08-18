@@ -36,6 +36,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/fx-library/tsconfig.lib.json"
       }
+    },
+    "custom-logger": {
+      "type": "library",
+      "root": "libs/custom-logger",
+      "entryFile": "index",
+      "sourceRoot": "libs/custom-logger/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/custom-logger/tsconfig.lib.json"
+      }
     }
   }
 }

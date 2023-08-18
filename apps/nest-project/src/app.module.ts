@@ -1,7 +1,6 @@
 import { CacheConfigModule } from './modules/cache-config/cache-config.module';
-import { LoggerModule } from './modules/logger/logger.module';
 import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.module';
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { AppController } from './app.controller';
@@ -12,8 +11,8 @@ import configuration from './config/configuration';
 import cacheConfig from './config/cache.config';
 import webserverConfig from './config/webserver.config';
 import { ScheduleModule } from '@nestjs/schedule';
-import { RequestLoggerMiddleware } from './modules/logger/middleware/request-logger.middleware';
-import loggerConfig from './config/logger.config';
+import { RequestLoggerMiddleware } from '../../../libs/custom-logger/src/middleware/request-logger.middleware';
+import { CustomLoggerModule } from '@app/custom-logger';
 
 @Module({
   imports: [
@@ -21,14 +20,14 @@ import loggerConfig from './config/logger.config';
       isGlobal: true,
       envFilePath: ['.env.dev.local', 'env.dev'],
       ignoreEnvFile: false,
-      load: [configuration, webserverConfig, loggerConfig, cacheConfig]
+      load: [configuration, webserverConfig, cacheConfig]
     }),
     ScheduleModule.forRoot(),
     CacheModule.registerAsync({
       useClass: CacheConfigService
     }),
     ScheduledTasksModule,
-    LoggerModule,
+    CustomLoggerModule,
     CacheConfigModule
   ],
   controllers: [AppController],
@@ -44,7 +43,7 @@ import loggerConfig from './config/logger.config';
     CacheConfigModule
   ]
 })
-export class AppModule {
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(RequestLoggerMiddleware).forRoutes('*');
   }

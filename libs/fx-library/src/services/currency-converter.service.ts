@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosError } from 'axios';
@@ -9,6 +9,8 @@ import { catchError, firstValueFrom } from 'rxjs';
 @Injectable()
 export class CurrencyConverterService {
     
+    private readonly logger = new Logger(CurrencyConverterService.name);
+    
     constructor(
         private readonly configService: ConfigService,
         private readonly httpService: HttpService) {
@@ -17,16 +19,16 @@ export class CurrencyConverterService {
 
     public async getExchangeRate(currencyPair: CurrencyPairDto): Promise<CurrencyPairExchangeRateDto> {
 
-        currencyPair.sourceCurrency = currencyPair.sourceCurrency.trim().toUpperCase();
-        currencyPair.targetCurrency = currencyPair.targetCurrency.trim().toUpperCase();
+        this.logger.log(`Getting exchange rate for currency pair: ${currencyPair}`)
 
-        if (currencyPair.sourceCurrency === currencyPair.targetCurrency) {
-            return {
-                exchangeRate: 1
-            }
+        currencyPair.baseCurrency = currencyPair.baseCurrency.trim().toUpperCase();
+        currencyPair.quoteCurrency = currencyPair.quoteCurrency.trim().toUpperCase();
+
+        if (currencyPair.baseCurrency === currencyPair.quoteCurrency) {
+            return new CurrencyPairExchangeRateDto(1);
         }
 
-        const url = `${this.configService.get('currencylayer.api.baseUrl')}/api/live?access_key=${this.configService.get('currencylayer.api.key')}&source=${currencyPair.sourceCurrency}&currencies=${currencyPair.targetCurrency}`;
+        const url = `${this.configService.get('currencylayer.api.baseUrl')}/api/live?access_key=${this.configService.get('currencylayer.api.key')}&source=${currencyPair.baseCurrency}&currencies=${currencyPair.quoteCurrency}`;
 
 
         const response  = await firstValueFrom(this.httpService.get(url)
@@ -43,11 +45,10 @@ export class CurrencyConverterService {
         }
 
         const exchangeRate = Number(Object.values(response.data.quotes)[0]);
-        
-        const result: CurrencyPairExchangeRateDto = {
-            exchangeRate: exchangeRate
-        }
+        const exchangeRateDto = new CurrencyPairExchangeRateDto(exchangeRate);
 
-        return result;
+        this.logger.log(`Exchange rate for currency pair: ${currencyPair} is ${exchangeRateDto}`)
+
+        return exchangeRateDto;
     }
 }

@@ -85,7 +85,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/fx-library(|/.*)$": "<rootDir>/libs/fx-library/src/$1"
+      "^@app/fx-library(|/.*)$": "<rootDir>/libs/fx-library/src/$1",
+      "^@app/custom-logger(|/.*)$": "<rootDir>/libs/custom-logger/src/$1"
     }
   }
 }

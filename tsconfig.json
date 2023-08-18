@@ -23,6 +23,12 @@
       ],
       "@app/fx-library/*": [
         "libs/fx-library/src/*"
+      ],
+      "@app/custom-logger": [
+        "libs/custom-logger/src"
+      ],
+      "@app/custom-logger/*": [
+        "libs/custom-logger/src/*"
       ]
     }
   }
