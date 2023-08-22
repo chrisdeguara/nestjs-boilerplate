@@ -1,2 +1,2 @@
 export * from './calculator.module';
-export * from './calculator.service';
+export * from './services/calculator.service';
