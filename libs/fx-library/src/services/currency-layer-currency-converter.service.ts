@@ -5,11 +5,12 @@ import { AxiosError } from 'axios';
 import { CurrencyPairExchangeRateDto } from '../dto/currency-pair-exchange-rate.dto';
 import { CurrencyPairDto } from '../dto/currency-pair.dto';
 import { catchError, firstValueFrom } from 'rxjs';
+import { ICurrencyConverterService } from '../interfaces/currency-converter-service.interface';
 
 @Injectable()
-export class CurrencyConverterService {
+export class CurrencyLayerCurrencyConverterService implements ICurrencyConverterService {
     
-    private readonly logger = new Logger(CurrencyConverterService.name);
+    private readonly logger = new Logger(CurrencyLayerCurrencyConverterService.name);
     
     constructor(
         private readonly configService: ConfigService,
@@ -19,7 +20,7 @@ export class CurrencyConverterService {
 
     public async getExchangeRate(currencyPair: CurrencyPairDto): Promise<CurrencyPairExchangeRateDto> {
 
-        this.logger.log(`Getting exchange rate for currency pair: ${currencyPair}`)
+        this.logger.log(`Getting exchange rate for currency pair: ${currencyPair} from currency layer`)
 
         currencyPair.sanitizeBaseCurrency();
         currencyPair.sanitizeQuoteCurrency();
@@ -30,11 +31,10 @@ export class CurrencyConverterService {
 
         const url = `${this.configService.get('currencylayer.api.baseUrl')}/api/live?access_key=${this.configService.get('currencylayer.api.key')}&source=${currencyPair.baseCurrency}&currencies=${currencyPair.quoteCurrency}`;
 
-
         const response  = await firstValueFrom(this.httpService.get(url)
             .pipe(
                 catchError((error: AxiosError) => {
-                    // Log the error
+                    this.logger.error('Failed to get exchange rate from API', error);
                     throw error
                 }),
             )

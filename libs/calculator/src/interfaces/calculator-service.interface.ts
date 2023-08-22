@@ -1,5 +1,3 @@
-export const CALCULATOR_SERVICE = 'CALCULATOR SERVICE'
-
 export interface ICalculatorService {
     add(num1: number, num2: number): number;
     subtract(num1: number, num2: number): number;

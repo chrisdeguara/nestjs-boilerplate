@@ -1,6 +1,7 @@
 import { Controller, Get, Inject, Param, ParseFloatPipe, Query, UseInterceptors } from '@nestjs/common';
 import { CacheInterceptor } from '@nestjs/cache-manager';
-import { CALCULATOR_SERVICE, ICalculatorService } from '@app/calculator/interfaces/calculator-service.interface';
+import { ICalculatorService } from '@app/calculator/interfaces/calculator-service.interface';
+import { CALCULATOR_SERVICE } from 'libs/calculator/constants';
 
 @Controller('calculator')
 @UseInterceptors(CacheInterceptor)
