@@ -1,6 +1,6 @@
-import { Controller, Get, UseFilters, UseInterceptors } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, UseFilters } from '@nestjs/common';
 import { ExceptionFilter } from 'apps/fx-app/src/filters/exception.filter';
+import { AppService } from '../app.service';
 
 @Controller()
 @UseFilters(new ExceptionFilter)

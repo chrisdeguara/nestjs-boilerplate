@@ -1,19 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CacheModule } from '@nestjs/cache-manager';
-import { CacheConfigModule } from './modules/cache-config/cache-config.module';
+import { AppService } from '../app.service';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [
-        CacheConfigModule,
-        CacheModule.register()
+        CacheModule.register(),
       ],
       controllers: [AppController],
-      providers: [AppService]
+      providers: [AppService, {
+        provide: APP_INTERCEPTOR,
+        useClass: CacheInterceptor
+      }]
     }).compile();
 
     appController = app.get<AppController>(AppController);

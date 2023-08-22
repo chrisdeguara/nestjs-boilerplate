@@ -4,7 +4,7 @@ import { CurrencyPairDto } from '@app/fx-library/dto/currency-pair.dto';
 import { FxLibraryModule } from '@app/fx-library';
 import { HttpModule } from '@nestjs/axios';
 import { CacheModule } from '@nestjs/cache-manager';
-import currencyLayerConfig from './config/currency-layer.config';
+import currencyLayerConfig from '../config/currency-layer.config';
 import { ConfigModule } from '@nestjs/config';
 
 describe('FxAppController', () => {

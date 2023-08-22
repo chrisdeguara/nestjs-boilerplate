@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CalculatorAppController } from './calculator-app.controller';
-import { CalculatorAppService } from './calculator-app.service';
 import { CalculatorModule } from '@app/calculator';
 import { CacheModule } from '@nestjs/cache-manager';
 
@@ -13,7 +12,7 @@ describe('CalculatorAppController', () => {
         CalculatorModule,
         CacheModule.register()],
       controllers: [CalculatorAppController],
-      providers: [CalculatorAppService],
+      providers: [],
     }).compile();
 
     calculatorAppController = app.get<CalculatorAppController>(CalculatorAppController);

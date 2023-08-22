@@ -2,7 +2,6 @@ import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CacheInterceptor } from '@nestjs/cache-manager';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import configuration from './config/configuration';
@@ -11,6 +10,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { RequestLoggerMiddleware } from '../../../libs/custom-logger/src/middleware/request-logger.middleware';
 import { CustomLoggerModule } from '@app/custom-logger';
 import { RedisCacheModule } from '@app/redis-cache';
+import { AppController } from './controllers/app.controller';
 
 @Module({
   imports: [
