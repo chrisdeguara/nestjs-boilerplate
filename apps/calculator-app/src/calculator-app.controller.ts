@@ -1,11 +1,13 @@
-import { Controller, Get, Param, ParseFloatPipe, Query, UseInterceptors } from '@nestjs/common';
-import { CalculatorAppService } from './calculator-app.service';
+import { Controller, Get, Inject, Param, ParseFloatPipe, Query, UseInterceptors } from '@nestjs/common';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CALCULATOR_APP_SERVICE, ICalculatorAppService } from './calculator-app-service.interface';
 
 @Controller('calculator')
 @UseInterceptors(CacheInterceptor)
 export class CalculatorAppController {
-  constructor(private readonly calculatorAppService: CalculatorAppService) {}
+  constructor(
+    @Inject(CALCULATOR_APP_SERVICE)
+    private readonly calculatorAppService: ICalculatorAppService) {}
 
   @Get('add')
   addUsingQueryParams(@Query('num1', ParseFloatPipe) num1: number, @Query('num2', ParseFloatPipe) num2: number): number {

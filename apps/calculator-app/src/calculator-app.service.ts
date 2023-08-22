@@ -1,8 +1,9 @@
 import { CalculatorService } from '@app/calculator';
 import { Injectable, Logger } from '@nestjs/common';
+import { ICalculatorAppService } from './calculator-app-service.interface';
 
 @Injectable()
-export class CalculatorAppService {
+export class CalculatorAppService implements ICalculatorAppService {
   private readonly logger = new Logger(CalculatorAppService.name);
 
   constructor(
