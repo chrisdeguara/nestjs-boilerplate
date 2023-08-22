@@ -6,7 +6,7 @@
         "request": "launch",
         "name": "Debug Nest Framework",
         "args": [
-          "${workspaceFolder}/apps/microservice-example/src/main.ts"
+          "${workspaceFolder}/apps/calculator-app/src/main.ts"
         ],
         "runtimeArgs": [
           "--nolazy",
@@ -20,6 +20,6 @@
         "cwd": "${workspaceRoot}",
         "console": "integratedTerminal",
         "protocol": "inspector"
-      },
+      }
     ]
   }

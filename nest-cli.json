@@ -72,6 +72,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/calculator/tsconfig.lib.json"
       }
+    },
+    "calculator-app": {
+      "type": "application",
+      "root": "apps/calculator-app",
+      "entryFile": "main",
+      "sourceRoot": "apps/calculator-app/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/calculator-app/tsconfig.app.json"
+      }
     }
   }
 }
