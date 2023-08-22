@@ -35,6 +35,12 @@
       ],
       "@app/redis-cache/*": [
         "libs/redis-cache/src/*"
+      ],
+      "@app/calculator": [
+        "libs/calculator/src"
+      ],
+      "@app/calculator/*": [
+        "libs/calculator/src/*"
       ]
     }
   }
