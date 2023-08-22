@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FxAppController } from './fx-app.controller';
 import { CurrencyPairDto } from '@app/fx-library/dto/currency-pair.dto';
-import { ConfigModule } from '@nestjs/config';
-import currencyLayerConfig from './config/currency-layer.config';
-import webserverConfig from './config/webserver.config';
 import { FxLibraryModule } from '@app/fx-library';
 import { HttpModule } from '@nestjs/axios';
+import { CacheModule } from '@nestjs/cache-manager';
+import currencyLayerConfig from './config/currency-layer.config';
+import { ConfigModule } from '@nestjs/config';
 
 describe('FxAppController', () => {
   let fxAppController: FxAppController;
@@ -17,8 +17,9 @@ describe('FxAppController', () => {
           isGlobal: true,
           envFilePath: ['.env.dev.local', 'env.dev'],
           ignoreEnvFile: false,
-          load: [webserverConfig, currencyLayerConfig],
+          load: [currencyLayerConfig]
         }),
+        CacheModule.register(),
         HttpModule,
         FxLibraryModule
       ],
@@ -29,11 +30,12 @@ describe('FxAppController', () => {
     fxAppController = app.get<FxAppController>(FxAppController);
   });
 
-  describe('root', () => {
-    it('should return a number', () => {
+  describe('getExchangeRateUsingQueryParams', () => {
+    it('should return a CurrencyPairExchangeRateDto object', async () => {
       const query = new CurrencyPairDto('USD', 'EUR');
-      const result = fxAppController.getExchangeRateUsingQueryParams(query);
-      expect(typeof result).toBe('number');
+      const result = await fxAppController.getExchangeRateUsingQueryParams(query);
+      expect(result).toBeDefined();
+      expect(result.constructor.name).toBe('CurrencyPairExchangeRateDto');
     });
   });
 });
