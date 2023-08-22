@@ -22,10 +22,16 @@ export class ExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    const message = 
+      exception instanceof HttpException
+      ? exception.message
+      : 'An error occured';
+
     response.status(status).json({
       statusCode: status,
+      message: message,
       timestamp: new Date().toISOString(),
-      path: request.url,
+      path: request.url
     });
 
     this.logger.error(exception);
