@@ -30,6 +30,15 @@ describe('FxAppController', () => {
     fxAppController = app.get<FxAppController>(FxAppController);
   });
 
+  describe('getExchangeRateUsingRouteParams', () => {
+    it('should return a CurrencyPairExchangeRateDto object', async () => {
+      const query = new CurrencyPairDto('USD', 'EUR');
+      const result = await fxAppController.getExchangeRateUsingRouteParams(query);
+      expect(result).toBeDefined();
+      expect(result.constructor.name).toBe('CurrencyPairExchangeRateDto');
+    });
+  });
+
   describe('getExchangeRateUsingQueryParams', () => {
     it('should return a CurrencyPairExchangeRateDto object', async () => {
       const query = new CurrencyPairDto('USD', 'EUR');
