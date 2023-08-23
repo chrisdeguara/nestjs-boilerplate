@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CalculatorService } from './services/calculator.service';
 import { ConfigModule } from '@nestjs/config';
 import { CustomLoggerModule } from '@app/custom-logger';
-import { CALCULATOR_SERVICE } from '../constants';
+import { CALCULATOR_SERVICE } from './constants';
 
 const calculatorService = {
   provide: CALCULATOR_SERVICE,
