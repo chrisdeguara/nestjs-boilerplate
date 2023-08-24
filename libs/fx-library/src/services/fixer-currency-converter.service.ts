@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger, NotAcceptableException, NotImplementedException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotAcceptableException } from '@nestjs/common';
 import { ICurrencyConverterService } from '../interfaces/currency-converter-service.interface';
 import { CurrencyPairExchangeRateDto } from '../dto/currency-pair-exchange-rate.dto';
 import { CurrencyPairDto } from '../dto/currency-pair.dto';
@@ -26,7 +26,7 @@ export class FixerCurrencyConverterService implements ICurrencyConverterService 
 
 
         if (currencyPair.baseCurrency !== 'EUR') {
-            throw new NotAcceptableException('Only USD is supported as base currency')
+            throw new NotAcceptableException('Only EUR is supported as base currency')
         }
 
         if (currencyPair.baseCurrency === currencyPair.quoteCurrency) {
@@ -45,7 +45,7 @@ export class FixerCurrencyConverterService implements ICurrencyConverterService 
         );
 
         if (!response.data.success) {
-            throw new ForbiddenException(`FX API could not process request. Error Code: ${response.data.error.code}`)
+            throw new BadRequestException(`FX API could not process request. Error Code: ${response.data.error.code}`)
         }
 
         const exchangeRate = Number(response.data.rates[currencyPair.quoteCurrency]);

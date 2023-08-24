@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { AxiosError } from 'axios';
@@ -41,7 +41,7 @@ export class CurrencyLayerCurrencyConverterService implements ICurrencyConverter
         );
 
         if (!response.data.success) {
-            throw new ForbiddenException(`FX API could not process request. Error Code: ${response.data.error.code}`)
+            throw new BadRequestException(`FX API could not process request. Error Code: ${response.data.error.code}`)
         }
 
         const exchangeRate = Number(Object.values(response.data.quotes)[0]);
