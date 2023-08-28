@@ -1,3 +1,6 @@
+import { UserManagementModule } from './../../user-management/src/user-management.module';
+import { UsersModule } from './../../user-management/src/users/users.module';
+import { UsersModule } from './../../user-management/src/users.module';
 import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -14,6 +17,9 @@ import { AppController } from './controllers/app.controller';
 
 @Module({
   imports: [
+    UserManagementModule,
+    UsersModule,
+    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.dev.local', 'env.dev'],
@@ -27,9 +33,9 @@ import { AppController } from './controllers/app.controller';
   ],
   controllers: [AppController],
   providers: [{
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor
-    },
+    provide: APP_INTERCEPTOR,
+    useClass: CacheInterceptor
+  },
     AppService
   ]
 })

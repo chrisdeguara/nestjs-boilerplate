@@ -81,6 +81,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/calculator-app/tsconfig.app.json"
       }
+    },
+    "user-management": {
+      "type": "application",
+      "root": "apps/user-management",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-management/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-management/tsconfig.app.json"
+      }
     }
   }
 }
