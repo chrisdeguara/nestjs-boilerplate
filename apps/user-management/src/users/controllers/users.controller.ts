@@ -1,12 +1,15 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
+import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/requests/create-user.dto';
 import { User } from '../entities/user.entity';
 import { UpdateUserDto } from '../dtos/requests/update-user';
+import { USERS_SERVICE } from '../constants/constants';
+import { IUsersService } from '../interfaces/users-service.interface';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    @Inject(USERS_SERVICE)
+    private readonly usersService: IUsersService) {}
 
   @Get()
   findAll(): Promise<User[]> {

@@ -4,9 +4,10 @@ import { User } from '../entities/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/requests/create-user.dto';
 import { UpdateUserDto } from '../dtos/requests/update-user';
+import { IUsersService } from '../interfaces/users-service.interface';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService {
 
     private readonly logger = new Logger(UsersService.name);
 
