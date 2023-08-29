@@ -1,15 +1,15 @@
 import { BadRequestException, Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/requests/create-user.dto';
 import { User } from '../entities/user.entity';
-import { UpdateUserDto } from '../dtos/requests/update-user';
-import { USERS_SERVICE } from '../constants/constants';
-import { IUsersService } from '../interfaces/users-service.interface';
+import { UpdateUserDto } from '../dtos/requests/update-user.dto';
+import { USER_SERVICE } from '../constants/constants';
+import { IUserService } from '../interfaces/user-service.interface';
 
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(USERS_SERVICE)
-    private readonly usersService: IUsersService) {}
+    @Inject(USER_SERVICE)
+    private readonly usersService: IUserService) {}
 
   @Get()
   findAll(): Promise<User[]> {
@@ -22,7 +22,16 @@ export class UsersController {
   }
 
   @Post()
-  async create(@Body() createUserDtos: CreateUserDto[]): Promise<User[]> {
+  async createSingle(@Body() createUserDto: CreateUserDto): Promise<User> {
+    try {
+        return await this.usersService.create(createUserDto);
+    } catch (error) {
+        throw new BadRequestException(error.message)
+    }
+  }
+
+  @Post('many')
+  async createMany(@Body() createUserDtos: CreateUserDto[]): Promise<User[]> {
     try {
         return await this.usersService.createMany(createUserDtos);
     } catch (error) {

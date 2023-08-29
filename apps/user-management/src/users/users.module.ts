@@ -1,15 +1,15 @@
 import { UsersController } from './controllers/users.controller';
-import { UsersService } from './services/users.service';
+import { UserService } from './services/user.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UserSubscriber } from './subscribers/user.subscriber';
 import { CustomLoggerModule } from '@app/custom-logger';
-import { USERS_SERVICE } from './constants/constants';
+import { USER_SERVICE } from './constants/constants';
 
-const usersService = {
-    provide: USERS_SERVICE,
-    useClass: UsersService
+const userService = {
+    provide: USER_SERVICE,
+    useClass: UserService
   }
 
 @Module({
@@ -21,7 +21,7 @@ const usersService = {
         UsersController
     ],
     providers: [
-        usersService,
+        userService,
         UserSubscriber
     ],
 })

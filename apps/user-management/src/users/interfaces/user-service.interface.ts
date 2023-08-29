@@ -1,8 +1,8 @@
 import { CreateUserDto } from "../dtos/requests/create-user.dto";
-import { UpdateUserDto } from "../dtos/requests/update-user";
+import { UpdateUserDto } from "../dtos/requests/update-user.dto";
 import { User } from "../entities/user.entity";
 
-export interface IUsersService {
+export interface IUserService {
     findAll(): Promise<User[]>;
 
     findOne(id: string): Promise<User | null>;

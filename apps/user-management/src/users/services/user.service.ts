@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/requests/create-user.dto';
-import { UpdateUserDto } from '../dtos/requests/update-user';
-import { IUsersService } from '../interfaces/users-service.interface';
+import { UpdateUserDto } from '../dtos/requests/update-user.dto';
+import { IUserService } from '../interfaces/user-service.interface';
 
 @Injectable()
-export class UsersService implements IUsersService {
+export class UserService implements IUserService {
 
-    private readonly logger = new Logger(UsersService.name);
+    private readonly logger = new Logger(UserService.name);
 
     constructor(
         private readonly dataSource: DataSource,
@@ -18,15 +18,19 @@ export class UsersService implements IUsersService {
     ) {}
 
     findAll(): Promise<User[]> {
+        this.logger.log('Getting all users');
         return this.usersRepository.find();
     }
 
     findOne(id: string): Promise<User | null> {
+        this.logger.log(`Get user id: ${id}`);
         return this.usersRepository.findOneBy({id});
     }
 
     async remove(id: string): Promise<void> {
+        this.logger.log(`Removing user id: ${id}`);
         await this.usersRepository.delete(id);
+        this.logger.log(`Removed user id: ${id}`);
     }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
@@ -59,14 +63,12 @@ export class UsersService implements IUsersService {
         try {
             const savePromises = createUsersDto.map(async createUserDto => {
                 
-                this.logger.log(`Creating user: ${createUserDto}`);
                 const user = this.usersRepository.create(createUserDto);
                 user.firstName = createUserDto.firstName.trim();
                 user.lastName = createUserDto.lastName.trim();
                 user.email = createUserDto.email.trim().toLocaleLowerCase();
                 const savedUser = await queryRunner.manager.save(user);
                 createdUsers.push(savedUser);
-                this.logger.log(`Created user: ${createUserDto}`);
             });
     
             this.logger.log('Awaiting creations');

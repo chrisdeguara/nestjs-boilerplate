@@ -1,6 +1,4 @@
 import { UserManagementModule } from './../../user-management/src/user-management.module';
-import { UsersModule } from './../../user-management/src/users/users.module';
-import { UsersModule } from './../../user-management/src/users.module';
 import { ScheduledTasksModule } from './modules/scheduled-tasks/scheduled-tasks.module';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -14,12 +12,13 @@ import { RequestLoggerMiddleware } from '../../../libs/custom-logger/src/middlew
 import { CustomLoggerModule } from '@app/custom-logger';
 import { RedisCacheModule } from '@app/redis-cache';
 import { AppController } from './controllers/app.controller';
+import { UsersModule } from 'apps/user-management/src/users/users.module';
 
 @Module({
   imports: [
     UserManagementModule,
     UsersModule,
-    UsersModule,
+
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.dev.local', 'env.dev'],

@@ -1,1 +1,1 @@
-export const USERS_SERVICE = 'USERS_SERVICE'
+export const USER_SERVICE = 'USER_SERVICE'

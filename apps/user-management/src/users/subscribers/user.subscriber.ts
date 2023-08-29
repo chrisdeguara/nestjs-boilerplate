@@ -20,6 +20,6 @@ import { Logger } from '@nestjs/common';
     }
   
     beforeInsert(event: InsertEvent<User>) {
-      this.logger.log(`Before User Inserted: ${event.entity}`);
+      this.logger.log(`Before User Inserted: ${event.entity.toString()}`);
     }
   }

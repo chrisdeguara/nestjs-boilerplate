@@ -13,4 +13,8 @@ export class User {
 
     @Column({ name: 'email', unique: true})
     email: string;
+
+    public toString(): string {
+        return `id: ${this.id}, first_name: ${this.firstName}, last_name: ${this.lastName}, email: ${this.email}`
+    }
 }
