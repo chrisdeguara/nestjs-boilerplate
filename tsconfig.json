@@ -41,6 +41,12 @@
       ],
       "@app/calculator/*": [
         "libs/calculator/src/*"
+      ],
+      "@app/db-connector": [
+        "libs/db-connector/src"
+      ],
+      "@app/db-connector/*": [
+        "libs/db-connector/src/*"
       ]
     }
   }

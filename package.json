@@ -96,7 +96,8 @@
       "^@app/custom-logger(|/.*)$": "<rootDir>/libs/custom-logger/src/$1",
       "^@app/redis-cache(|/.*)$": "<rootDir>/libs/redis-cache/src/$1",
       "^@app/calculator(|/.*)$": "<rootDir>/libs/calculator/src/$1",
-      "^@app/relational-db-library(|/.*)$": "<rootDir>/libs/relational-db-library/src/$1"
+      "^@app/relational-db-library(|/.*)$": "<rootDir>/libs/relational-db-library/src/$1",
+      "^@app/db-connector(|/.*)$": "<rootDir>/libs/db-connector/src/$1"
     }
   }
 }

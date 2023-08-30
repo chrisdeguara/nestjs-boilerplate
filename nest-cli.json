@@ -90,6 +90,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/user-management/tsconfig.app.json"
       }
+    },
+    "db-connector": {
+      "type": "library",
+      "root": "libs/db-connector",
+      "entryFile": "index",
+      "sourceRoot": "libs/db-connector/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/db-connector/tsconfig.lib.json"
+      }
     }
   }
 }
