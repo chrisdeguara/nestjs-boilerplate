@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: calculator-app-redis
+    ports:
+      - "6379:6379"
+    
+  calculator-app:
+    image: calculator-app:latest
+    environment:
+      CACHE_REDIS_HOST: redis
+      LOGGER_COMBINED_FILE_PATH: /var/log/nestjs/combined.log
+      LOGGER_ERROR_FILE_PATH: /var/log/nestjs/error.log
+    depends_on:
+      - redis
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql-data:
