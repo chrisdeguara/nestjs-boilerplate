@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  microservice-example:
+    image: microservice-example:latest
+    environment:
+      LOGGER_COMBINED_FILE_PATH: /var/log/nestjs/combined.log
+      LOGGER_ERROR_FILE_PATH: /var/log/nestjs/error.log
+    ports:
+      - "50001:50001"

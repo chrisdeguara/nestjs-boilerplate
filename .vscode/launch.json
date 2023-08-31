@@ -64,6 +64,26 @@
       {
         "type": "node",
         "request": "launch",
+        "name": "Debug Microservice Example",
+        "args": [
+          "${workspaceFolder}/apps/microservice-example/src/main.ts"
+        ],
+        "runtimeArgs": [
+          "--nolazy",
+          "-r",
+          "ts-node/register",
+          "-r",
+          "tsconfig-paths/register"
+        ],
+        "sourceMaps": true,
+        "envFile": "${workspaceFolder}/.env",
+        "cwd": "${workspaceRoot}",
+        "console": "integratedTerminal",
+        "protocol": "inspector"
+      },
+      {
+        "type": "node",
+        "request": "launch",
         "name": "Jest: current file",
         //"env": { "NODE_ENV": "test" },
         "program": "${workspaceFolder}/node_modules/.bin/jest",
