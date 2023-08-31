@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: user-management-redis
+    ports:
+      - "6379:6379"
+
+  mysql:
+    image: mysql:latest
+    container_name: user-management-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: nest
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      
+  user-management:
+    image: user-management:latest
+    environment:
+      DB_HOST: mysql
+      DB_PASSWORD: password123
+      DB_DATABASE: nest
+      CACHE_REDIS_HOST: redis
+      LOGGER_COMBINED_FILE_PATH: /var/log/nestjs/combined.log
+      LOGGER_ERROR_FILE_PATH: /var/log/nestjs/error.log
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql-data:
